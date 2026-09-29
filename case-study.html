@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Indonesian Agentic AI</title>
+<meta name="description" content="Case study: evaluating and adapting small local models for Indonesian function calling.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="top"><div class="wrap">
+  <a class="brand" href="./">Ari Nasichuddin</a>
+  <a href="./#demos">Demos</a>
+  <a href="./#experience">Experience</a>
+  <a href="case-study.html" aria-current="page">Case study</a>
+  <a href="./#contact">Contact</a>
+</div></nav>
+
+<main class="wrap">
+<article>
+<h1>Making small models work for Indonesian agentic AI</h1>
+<p class="when">PT Atmatech Global Informatika (<a href="https://netray.id/">Netray</a>) · 2025–2026 · Role: led the program and contributed to evaluation design, data iteration and integration review</p>
+
+<h2>The problem</h2>
+<p>Netray analyzes Indonesian news and social media. We wanted a chat assistant that could answer questions like <em>"rangkum isu X di media sosial minggu lalu"</em> ("summarize issue X on social media last week") by calling the right tools: search, query the analytics database, and recap the results.</p>
+<p>We explored whether <strong>small, local models</strong> could handle this reliably, so the evaluation also had to cover inference cost and hardware. Small models have well-known weak spots in function calling, and Indonesian makes them worse. Two failure types turned out to matter most:</p>
+<ul>
+  <li><strong>Calling a tool when none is needed</strong>, for example answering "halo" with a database query.</li>
+  <li><strong>Getting the arguments wrong</strong>, especially relative dates like "minggu lalu" (last week) or "bulan ini" (this month).</li>
+</ul>
+
+<h2>What we did</h2>
+<h3>1. Built an evaluation before choosing a model</h3>
+<p>We designed test cases around the decisions an agent actually makes:</p>
+<div class="table-wrap"><table>
+  <tr><th>Dimension</th><th>What we tested</th></tr>
+  <tr><td>Tool need</td><td>Should the model call a tool at all? This includes greetings and small talk (no-tool behavior).</td></tr>
+  <tr><td>Tool choice</td><td>Did the model pick the right tool?</td></tr>
+  <tr><td>Arguments</td><td>Were the keywords, entities and parameters correct?</td></tr>
+  <tr><td>Time</td><td>Did explicit and relative dates, weekly ranges and monthly ranges resolve correctly?</td></tr>
+  <tr><td>Deployment</td><td>How do quantization, serving backend, and CPU versus GPU affect speed and memory?</td></tr>
+</table></div>
+<p>The evaluation grew to <strong>51 populated model and configuration sheets</strong> across several small and local model families.</p>
+
+<h3>2. Adapted a small model to Indonesian</h3>
+<ul>
+  <li>Translated an English function-calling dataset to Indonesian through a local API, with checkpoint and resume.</li>
+  <li>Cleaned the result with deduplication and MetricX-assisted quality filtering. The project log reports <strong>59,266 of 60,000 rows kept (98.8%)</strong>. That figure is data retention, not model accuracy.</li>
+  <li>Fine-tuned <strong>xLAM-2-1B with LoRA SFT</strong>, then added targeted greeting (no-tool) and date-range examples wherever the evaluation showed failures.</li>
+  <li>Designed serving on <strong>vLLM</strong> with an OpenAI-compatible API.</li>
+</ul>
+
+<h3>3. Tested the full loop, not just the JSON</h3>
+<p>In an MCP-based research assistant, we evaluated function calls on their own and also end to end: tool call, then the database or search result, then the final answer. The work covered news and social-media recaps and analytics query adjustment.</p>
+
+<h2>What we learned</h2>
+<ul>
+  <li><strong>Valid JSON is not task completion.</strong> A model can choose the right tool and still fail on arguments, dates, or on how it uses the tool result. Most of our tests measured function-call generation, so we tracked end-to-end completion separately and didn't mix the two numbers.</li>
+  <li><strong>Targeted data beats more data.</strong> Adding greeting and weekly-range examples improved greeting and some weekly cases. Monthly date ranges stayed an open problem, and we report it as one.</li>
+  <li><strong>Evaluation decides deployment.</strong> Quantization, backend and hardware choices changed speed and memory enough to affect which model we would ship. They were tested alongside quality, not after it.</li>
+  <li><strong>Know what a result can't prove.</strong> Internal scores are not a public benchmark, so we don't present them as one.</li>
+</ul>
+
+<h2>Stack</h2>
+<p>
+  <span class="pill">Python</span><span class="pill">Transformers</span><span class="pill">LoRA / PEFT</span><span class="pill">LLaMA-Factory</span><span class="pill">Unsloth</span><span class="pill">xLAM-2-1B</span><span class="pill">vLLM</span><span class="pill">llama.cpp</span><span class="pill">MCP</span><span class="pill">Function calling</span><span class="pill">RAG (Qdrant)</span><span class="pill">MetricX</span>
+</p>
+
+<h2>Related work</h2>
+<ul>
+  <li><a href="https://medical.torcons.ai/">TorCons Medical</a>: Indonesian AI health assistant with a Chain-of-Thought toggle. In our paired test over 45 bilingual scenarios, both modes completed 45 of 45, and average total time rose from 28.4 s to 55.7 s with CoT. Completion is not proof of medical correctness, and the assistant is not clinically validated.</li>
+  <li><a href="https://translate.torcons.ai/">TorCons Translate</a>: multilingual AI translator from the machine translation work, with documented EOS, repetition, numeric-corruption and wrong-language failures.</li>
+  <li>Indonesian NLP for news and social media (NER, sentiment) since 2018, evolved from CRF/BiLSTM to IndoBERT.</li>
+  <li>Talk: <em>Agentic RAG with Open Source</em>, Qiscus TechTalk 128 (2025).</li>
+</ul>
+
+<p class="caveat">This was team work. Where I led rather than implemented, I say so. Figures are limited to those I can trace to project records.</p>
+</article>
+</main>
+
+<footer><div class="wrap">
+  <a href="./">← Back to home</a> · <a href="mailto:arynas92@gmail.com">arynas92@gmail.com</a>
+</div></footer>
+</body>
+</html>

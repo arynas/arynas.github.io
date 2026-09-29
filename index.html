@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Moch Ari Nasichuddin</title>
+<meta name="description" content="Moch Ari Nasichuddin, Senior Applied AI/ML Engineer in Yogyakarta, Indonesia. LLMs, RAG, agentic AI, Indonesian NLP and speech AI.">
+<meta property="og:title" content="Moch Ari Nasichuddin | Applied AI/ML Engineer">
+<meta property="og:description" content="LLMs, RAG, agentic AI, Indonesian NLP and speech AI. Available for remote contract work.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="top"><div class="wrap">
+  <a class="brand" href="./">Ari Nasichuddin</a>
+  <a href="#demos">Demos</a>
+  <a href="#experience">Experience</a>
+  <a href="case-study.html">Case study</a>
+  <a href="#contact">Contact</a>
+</div></nav>
+
+<main class="wrap">
+<header class="hero">
+  <h1>Moch Ari Nasichuddin, M.Eng.</h1>
+  <p class="role">Senior Applied AI/ML Engineer · LLM, RAG, NLP &amp; Speech AI</p>
+  <p class="lead">I lead and build applied AI systems in Indonesia: agentic assistants, LLM fine-tuning, machine translation, and Indonesian speech recognition and synthesis. I care about evaluation that says clearly what a result can and cannot prove.</p>
+  <p class="meta">Sleman, Yogyakarta, Indonesia · Software since 2015, AI/ML since 2018 · Open to remote contract, freelance or fractional work (up to 21 hrs/week, evenings GMT+7)</p>
+  <div class="links">
+    <a class="btn primary" href="mailto:arynas92@gmail.com">Email me</a>
+    <a class="btn" href="https://www.linkedin.com/in/moch-ari-nasichuddin-bbb4abb8">LinkedIn</a>
+    <a class="btn" href="https://github.com/arynas">GitHub</a>
+  </div>
+</header>
+
+<section id="demos">
+  <h2>Live demos</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>TorCons Medical</h3>
+      <p>Indonesian AI health assistant with a Chain-of-Thought toggle, from our medical assistant work (multi-turn chat, RAG, Direct versus CoT evaluation).</p>
+      <p class="note">A research demo. It is not clinically validated and is not medical advice.</p>
+      <a class="go" href="https://medical.torcons.ai/">medical.torcons.ai →</a>
+    </div>
+    <div class="card">
+      <h3>TorCons Translate</h3>
+      <p>Multilingual AI translator (Indonesian ⇄ English and more), from the machine translation work: MarianMT, M2M-100, then GemmaX-style CPT and SFT.</p>
+      <a class="go" href="https://translate.torcons.ai/">translate.torcons.ai →</a>
+    </div>
+    <div class="card">
+      <h3>Netray</h3>
+      <p>Media monitoring and analytics for Indonesian news and social media, built by PT Atmatech Global Informatika, where I lead data and AI.</p>
+      <a class="go" href="https://netray.id/">netray.id →</a>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <h2>Selected work</h2>
+  <div class="item">
+    <h3><a href="case-study.html">Making small models work for Indonesian agentic AI</a></h3>
+    <p class="when">Case study · 2025–2026</p>
+    <p>How we evaluated and adapted small local models for Indonesian function calling: no-tool behavior, tool choice, arguments and relative dates, plus the deployment trade-offs of quantization, backend and hardware.</p>
+  </div>
+  <div class="item">
+    <h3>Agentic model evaluation program</h3>
+    <ul>
+      <li>Led and directly contributed to an internal evaluation with 51 populated model and configuration sheets, covering no-tool behavior, tool selection, arguments, date reasoning, quantization, backends and CPU/GPU trade-offs.</li>
+      <li>Kept function-call generation separate from end-to-end task completion.</li>
+    </ul>
+  </div>
+  <div class="item">
+    <h3>Medical AI and multimodal training</h3>
+    <ul>
+      <li>Designed and reviewed a Direct versus Chain-of-Thought evaluation across 45 bilingual medical scenarios. Both modes completed 45 of 45, and average total time rose from 28.41 s to 55.66 s with CoT. Completion did not prove medical correctness.</li>
+      <li>Led and contributed to a two-stage bilingual medical VLM pipeline (QLoRA and LoRA-MoE adapters) on a 24 GB GPU. Diagnosed adapter-freezing errors, gradient-checkpointing and graph-retention issues, loss scaling, masked labels, BF16 NaN and OOM. Smoke tests and an initial canary run completed; full end-to-end training is not yet complete.</li>
+      <li>Led multimodal experiment iterations from about 300 to about 36,000 examples, diagnosing under-training, metric defects, label noise and plateaus.</li>
+    </ul>
+  </div>
+  <div class="item">
+    <h3>Indonesian speech AI and machine translation</h3>
+    <ul>
+      <li>Evaluated four Indonesian ASR configurations on the MEDISCO set (360 prediction rows and 4,553 reference words per file). Normalized WER ranged from 2.88% to 4.09%.</li>
+      <li>Worked across Wav2Vec2-XLSR, Whisper, Qwen3-ASR and Qwen3-TTS for data preparation, adaptation, evaluation, quantized inference and backend comparison.</li>
+      <li>Led translation work with MarianMT, M2M-100 and GemmaX-style CPT and SFT, and documented EOS, repetition, numeric-corruption and wrong-language failures.</li>
+    </ul>
+  </div>
+  <div class="item">
+    <h3>Research practice and model stewardship</h3>
+    <ul>
+      <li>Identified train-test leakage and out-of-domain failures hidden by strong validation scores, and used them to limit model claims and plan follow-up tests.</li>
+      <li>Guided NER and sentiment systems from CRF, BiLSTM and TensorFlow/Keras to PyTorch and IndoBERT, driven by user edits and error analysis.</li>
+      <li>Set team practices for data splits, cross-validation, reproducible tests, changelogs and written experiment reviews.</li>
+      <li>Built a research knowledge base of 55 topic sheets and an architecture review of 18 model families.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="skills">
+  <h2>Skills</h2>
+  <dl class="skills">
+    <dt>Agentic AI</dt><dd>Multi-agent workflows, function calling, tool selection, no-tool behavior, temporal reasoning, MCP, RAG</dd>
+    <dt>LLM training</dt><dd>CPT, SFT, LoRA, QLoRA, full fine-tuning, PEFT, LLaMA-Factory, Unsloth</dd>
+    <dt>Evaluation</dt><dd>Benchmark design, WER, TTFT, latency, throughput, peak memory, error analysis, leakage and OOD testing</dd>
+    <dt>Language &amp; speech</dt><dd>IndoBERT, Whisper, Wav2Vec2-XLSR, Qwen3-ASR, Qwen3-TTS, MarianMT, M2M-100, MetricX</dd>
+    <dt>Engineering</dt><dd>Python, PyTorch, TensorFlow/Keras, Transformers, FastAPI, Flask, Qdrant, vLLM, llama.cpp, Celery, RabbitMQ, gRPC</dd>
+  </dl>
+</section>
+
+<section id="experience">
+  <h2>Experience</h2>
+  <div class="item">
+    <h3>Chief Data and Business Officer · PT Atmatech Global Informatika (Netray)</h3>
+    <p class="when">Sep 2023 – present · Yogyakarta</p>
+    <p>Lead applied AI research and engineering across agentic systems, medical AI, machine translation, Indonesian ASR/TTS and multimodal model adaptation. Review model, data, training and integration failures and turn them into focused experiments and product decisions.</p>
+  </div>
+  <div class="item">
+    <h3>VP of Engineering · PT Atmatech Global Informatika</h3>
+    <p class="when">Sep 2021 – Aug 2023 · Yogyakarta</p>
+    <p>Led AI/ML product engineering and multilingual model development, including machine translation, NLP and speech workflows with asynchronous processing and model serving.</p>
+  </div>
+  <div class="item">
+    <h3>Machine Learning Engineer and Web Core Programmer · PT Atmatech Global Informatika</h3>
+    <p class="when">Feb 2018 – Sep 2021 · Yogyakarta</p>
+    <p>Built and evaluated NLP, computer vision and speech recognition systems: sentiment analysis, topic modeling, face recognition and speech-to-text.</p>
+  </div>
+  <div class="item">
+    <h3>Earlier</h3>
+    <ul>
+      <li>Subject Matter Expert in Data Science, Binar Academy (freelance, Jul–Dec 2022)</li>
+      <li>Data Science Instructor, Waktukita.com (freelance, Nov–Dec 2020)</li>
+      <li>Full Stack Engineer, Wonderlabs.io (Sep 2017 – Feb 2018)</li>
+      <li>Full Stack Web Developer, Komuri Geekgarden (Apr 2015 – Aug 2017)</li>
+    </ul>
+  </div>
+</section>
+
+<section id="talks">
+  <h2>Talks &amp; publications</h2>
+  <ul>
+    <li><strong>Tackling High Computational Cost in LLM Fine-tuning with Unsloth</strong>, Baparekraf Developer Day, 2024</li>
+    <li><strong>Agentic RAG with Open Source: Enhancing Medical Case Studies</strong>, Qiscus TechTalk 128, 2025</li>
+    <li><strong>AI in Education and Tourism</strong>, GARUDA Program (Binar Academy × DPD DIY), 2025</li>
+    <li>Performance Improvement Using CNN for Sentiment Analysis (UGM, 2018)</li>
+    <li>Topic Modeling of JPTEI UNY Researchers on Google Scholar Using LDA (UNY, 2019)</li>
+  </ul>
+</section>
+
+<section id="education">
+  <h2>Education</h2>
+  <p><strong>M.Eng., Information Technology</strong>, Universitas Gadjah Mada, 2016–2018<br>
+  <strong>B.Comp., Informatics</strong>, Universitas Islam Indonesia, 2010–2015</p>
+  <p class="caveat">Languages: Indonesian (native), English (professional working proficiency)</p>
+</section>
+
+<section id="contact">
+  <h2>Contact</h2>
+  <p>I'm available for remote AI/ML contract work: agentic systems, LLM fine-tuning and evaluation, and Indonesian language and speech AI.</p>
+  <div class="links">
+    <a class="btn primary" href="mailto:arynas92@gmail.com">arynas92@gmail.com</a>
+    <a class="btn" href="https://www.linkedin.com/in/moch-ari-nasichuddin-bbb4abb8">LinkedIn</a>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap">
+  Figures on this site come from project records I can trace. Team results are described as team work, and internal scores are not public benchmarks.
+</div></footer>
+</body>
+</html>
