@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Evaluating an Indonesian Medical Assistant | Moch Ari Nasichuddin</title>
+<meta name="description" content="Case study: a paired Direct versus Chain-of-Thought evaluation of a bilingual medical assistant, and what completion, latency and failure reviews can and cannot prove.">
+<link rel="canonical" href="https://arynas.github.io/medical-evaluation.html">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://arynas.github.io/medical-evaluation.html">
+<meta property="og:title" content="Evaluating an Indonesian medical assistant: Direct vs Chain-of-Thought">
+<meta property="og:description" content="What a paired Direct vs CoT evaluation over 45 bilingual scenarios showed, and what it could not prove.">
+<meta property="og:image" content="https://arynas.github.io/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="top"><div class="wrap">
+  <a class="brand" href="./">Ari Nasichuddin</a>
+  <a href="./#work">Work</a>
+  <a href="./#research">Research</a>
+  <a href="./#experience">Experience</a>
+  <a href="./#contact">Contact</a>
+</div></nav>
+
+<main class="wrap">
+<article>
+<h1>Evaluating an Indonesian medical assistant: Direct versus Chain-of-Thought</h1>
+<p class="when">PT Atmatech Global Informatika · 2023–2026 · Role: designed and reviewed the evaluation, led the medical assistant program</p>
+
+<p class="note">The assistant is a research system. Nothing on this page shows clinical accuracy or medical safety, and the live demo is not medical advice.</p>
+
+<h2>The problem</h2>
+<p>We built a bilingual (Indonesian and English) medical chat assistant, and the public <a href="https://medical.torcons.ai/">TorCons Medical</a> demo comes from this work. It has a Chain-of-Thought (CoT) toggle: the model can write out intermediate reasoning before answering, or answer directly.</p>
+<p>CoT is often assumed to make answers better. It also makes them slower. Before deciding how to use it, we wanted to measure the cost and be precise about what our tests could and couldn't tell us about quality.</p>
+
+<h2>The system</h2>
+<p>The assistant grew out of a multi-agent design that I led:</p>
+<ul>
+  <li><strong>Moderator agent</strong> for intent classification and keyword extraction.</li>
+  <li><strong>Diagnosis agent</strong> for the multi-turn symptom conversation.</li>
+  <li><strong>Knowledge agent</strong> for retrieval-augmented answers, with Qdrant and a fallback path.</li>
+</ul>
+<p>Early iterations documented the routing failures you'd expect. Short questions or bare disease names were sometimes routed to diagnosis, retrieval sometimes pulled irrelevant context, and greetings sometimes triggered retrieval they didn't need. Adding RAG didn't fix answers on its own when retrieval quality was poor.</p>
+
+<h2>What we measured</h2>
+<h3>1. Paired Direct versus CoT run</h3>
+<p>We ran the same 45 bilingual medical scenarios in both modes on the same setup.</p>
+<div class="table-wrap"><table>
+  <tr><th>Measure</th><th>Direct</th><th>CoT</th></tr>
+  <tr><td>Scenarios completed</td><td>45 / 45</td><td>45 / 45</td></tr>
+  <tr><td>Average total time</td><td>28.41 s</td><td>55.66 s</td></tr>
+  <tr><td>Average time to first token</td><td>0.071 s</td><td>0.070 s</td></tr>
+  <tr><td>Average answer length</td><td>297 words</td><td>344 words</td></tr>
+  <tr><td>Average reasoning length</td><td>none</td><td>225 words</td></tr>
+</table></div>
+<p>On this setup, CoT made a full answer about 96% slower, while the first token arrived just as fast. Most of the extra time is the reasoning text itself, about 225 words per answer.</p>
+
+<h3>2. Latency across model configurations</h3>
+<p>A separate run compared two small models over 27 scenarios per configuration. I recalculated the averages from the raw rows, because one summary sheet had copied the wrong values.</p>
+<div class="table-wrap"><table>
+  <tr><th>Configuration label</th><th>Average total time</th></tr>
+  <tr><td>Gemma-4-E2B, no-think</td><td>10.59 s</td></tr>
+  <tr><td>Gemma-4-E2B, think</td><td>10.12 s</td></tr>
+  <tr><td>SmolLM3-3B, no-think</td><td>15.48 s</td></tr>
+  <tr><td>SmolLM3-3B, think</td><td>18.34 s</td></tr>
+</table></div>
+<p>"Think" and "no-think" are configuration names. They don't show that any reasoning happened inside the model.</p>
+
+<h3>3. Failure review</h3>
+<p>We reviewed outputs for recurring failure types and recorded examples of each: looping, persona or identity leakage, answering in the wrong language, missing medical disclaimers, and incorrect medical definitions. Looping and identity leakage were still open at the last review.</p>
+
+<h2>What we learned</h2>
+<ul>
+  <li><strong>Completion is not correctness.</strong> 45 of 45 in both modes means every run finished. It says nothing about whether the answers were medically right.</li>
+  <li><strong>CoT has a real latency cost.</strong> Time to first token hid it completely, so we report total time alongside TTFT.</li>
+  <li><strong>Check the summary against the rows.</strong> One sheet's averages didn't match its own data. So I recomputed every average from raw rows before reporting it.</li>
+  <li><strong>Quality needs domain review.</strong> Judging factual quality and safety needs medical reviewers with written labeling rules. That review hasn't been done yet, so we don't claim quality or safety.</li>
+</ul>
+
+<h2>What would make these results stronger</h2>
+<ul>
+  <li>Medical answer labels for Direct and CoT, with domain-expert review.</li>
+  <li>Formal labels and rules for looping, identity leakage, language mismatch, disclaimers and definitions.</li>
+  <li>A fixed, versioned scenario set so every model runs against the same inputs.</li>
+</ul>
+
+<h2>Stack</h2>
+<p>
+  <span class="pill">Gemma</span><span class="pill">SmolLM3</span><span class="pill">RAG (Qdrant)</span><span class="pill">Multi-agent routing</span><span class="pill">Python</span>
+</p>
+
+<p class="caveat">This was team work. I designed and reviewed the evaluation and led the program; implementation was shared. Every figure here comes from raw run files I can trace.</p>
+</article>
+</main>
+
+<footer><div class="wrap">
+  <a href="./">← Back to home</a> · <a href="case-study.html">Case study: Indonesian agentic AI</a> · <a href="mailto:arynas92@gmail.com">arynas92@gmail.com</a>
+</div></footer>
+</body>
+</html>

@@ -5,16 +5,49 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Moch Ari Nasichuddin</title>
 <meta name="description" content="Moch Ari Nasichuddin, Senior Applied AI/ML Engineer in Yogyakarta, Indonesia. LLMs, RAG, agentic AI, Indonesian NLP and speech AI.">
+<link rel="canonical" href="https://arynas.github.io/">
+<meta property="og:type" content="profile">
+<meta property="og:url" content="https://arynas.github.io/">
 <meta property="og:title" content="Moch Ari Nasichuddin | Applied AI/ML Engineer">
 <meta property="og:description" content="LLMs, RAG, agentic AI, Indonesian NLP and speech AI. Available for remote contract work.">
+<meta property="og:image" content="https://arynas.github.io/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "url": "https://arynas.github.io/",
+  "mainEntity": {
+    "@type": "Person",
+    "name": "Moch Ari Nasichuddin",
+    "alternateName": "arynas",
+    "jobTitle": "Senior Applied AI/ML Engineer",
+    "description": "Applied AI/ML engineer and technical leader working on agentic AI, LLM fine-tuning and evaluation, and Indonesian language and speech AI.",
+    "url": "https://arynas.github.io/",
+    "email": "mailto:arynas92@gmail.com",
+    "worksFor": { "@type": "Organization", "name": "PT Atmatech Global Informatika", "url": "https://netray.id/" },
+    "alumniOf": [
+      { "@type": "CollegeOrUniversity", "name": "Universitas Gadjah Mada" },
+      { "@type": "CollegeOrUniversity", "name": "Universitas Islam Indonesia" }
+    ],
+    "address": { "@type": "PostalAddress", "addressLocality": "Yogyakarta", "addressCountry": "ID" },
+    "knowsAbout": ["Agentic AI", "Large language models", "Retrieval-augmented generation", "LLM evaluation", "Indonesian NLP", "Speech recognition", "Machine translation"],
+    "sameAs": [
+      "https://www.linkedin.com/in/moch-ari-nasichuddin-bbb4abb8",
+      "https://github.com/arynas"
+    ]
+  }
+}
+</script>
 </head>
 <body>
 <nav class="top"><div class="wrap">
   <a class="brand" href="./">Ari Nasichuddin</a>
-  <a href="#demos">Demos</a>
+  <a href="#work">Work</a>
+  <a href="#research">Research</a>
   <a href="#experience">Experience</a>
-  <a href="case-study.html">Case study</a>
   <a href="#contact">Contact</a>
 </div></nav>
 
@@ -59,6 +92,11 @@
     <h3><a href="case-study.html">Making small models work for Indonesian agentic AI</a></h3>
     <p class="when">Case study · 2025–2026</p>
     <p>How we evaluated and adapted small local models for Indonesian function calling: no-tool behavior, tool choice, arguments and relative dates, plus the deployment trade-offs of quantization, backend and hardware.</p>
+  </div>
+  <div class="item">
+    <h3><a href="medical-evaluation.html">Evaluating an Indonesian medical assistant: Direct versus Chain-of-Thought</a></h3>
+    <p class="when">Case study · 2023–2026</p>
+    <p>A paired evaluation over 45 bilingual medical scenarios: what Chain-of-Thought cost in latency, which failures we found, and why finishing every test still doesn't prove medical correctness.</p>
   </div>
   <div class="item">
     <h3>Agentic model evaluation program</h3>
@@ -152,15 +190,42 @@
   </div>
 </section>
 
-<section id="talks">
-  <h2>Talks &amp; publications</h2>
-  <ul>
-    <li><strong>Tackling High Computational Cost in LLM Fine-tuning with Unsloth</strong>, Baparekraf Developer Day, 2024</li>
-    <li><strong>Agentic RAG with Open Source: Enhancing Medical Case Studies</strong>, Qiscus TechTalk 128, 2025</li>
-    <li><strong>AI in Education and Tourism</strong>, GARUDA Program (Binar Academy × DPD DIY), 2025</li>
-    <li>Performance Improvement Using CNN for Sentiment Analysis (UGM, 2018)</li>
-    <li>Topic Modeling of JPTEI UNY Researchers on Google Scholar Using LDA (UNY, 2019)</li>
-  </ul>
+<section id="research">
+  <h2>Research</h2>
+  <div class="item">
+    <h3>Interests</h3>
+    <p>I'm interested in trustworthy evaluation and adaptation of multilingual language models for low-resource settings, especially Indonesian and especially healthcare. In practice that means three questions I keep running into at work:</p>
+    <ul>
+      <li>How do we evaluate small models so the score reflects the real task? For example, keeping tool choice, arguments, dates and final answers as separate scores, and checking that the test set isn't leaking from training.</li>
+      <li>How do we adapt models to Indonesian with limited data and a single 24 GB GPU, and tell real gains from noise?</li>
+      <li>What can an evaluation honestly prove about a medical assistant, and what needs domain-expert review before anyone should claim it?</li>
+    </ul>
+  </div>
+  <div class="item">
+    <h3>Negative results I report</h3>
+    <ul>
+      <li>Train-test overlap in a social-sentiment dataset, and a deepfake-detection model that scored about 85–90% on validation but 0–40% on some new-source tests.</li>
+      <li>Monthly date ranges in Indonesian function calling stayed unsolved after targeted data updates.</li>
+      <li>Looping and identity leakage in the medical assistant remained open at the last review.</li>
+      <li>In LLM translation: EOS and repetition errors, numeric corruption, and answers in the wrong language.</li>
+    </ul>
+  </div>
+  <div class="item">
+    <h3>Publications</h3>
+    <ul>
+      <li>Performance Improvement Using CNN for Sentiment Analysis (UGM, 2018)</li>
+      <li>Topic Modeling of JPTEI UNY Researchers on Google Scholar Using LDA (UNY, 2019)</li>
+      <li>Digital citizenship discourse analysis of the 2024 Indonesian presidential election (UNY)</li>
+    </ul>
+  </div>
+  <div class="item">
+    <h3>Talks</h3>
+    <ul>
+      <li><strong>Tackling High Computational Cost in LLM Fine-tuning with Unsloth</strong>, Baparekraf Developer Day, 2024</li>
+      <li><strong>Agentic RAG with Open Source: Enhancing Medical Case Studies</strong>, Qiscus TechTalk 128, 2025</li>
+      <li><strong>AI in Education and Tourism</strong>, GARUDA Program (Binar Academy × DPD DIY), 2025</li>
+    </ul>
+  </div>
 </section>
 
 <section id="education">
